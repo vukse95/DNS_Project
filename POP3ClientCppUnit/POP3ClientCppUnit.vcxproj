@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AE193E9B-1CCD-4BD9-9CDD-4BB81EB4E196}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>POP3ClientCppUnit</RootNamespace>
+    <ProjectName>DNS_Client</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\CppUnit_1.12.1\include;..\Kernel;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>winmm.lib;ws2_32.lib;cppunitd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>..\Kernel;..\CppUnit_1.12.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Kernel\buffers.h" />
+    <ClInclude Include="..\Kernel\buffersQueue.h" />
+    <ClInclude Include="..\Kernel\Client.h" />
+    <ClInclude Include="..\Kernel\Client_DTP.h" />
+    <ClInclude Include="..\Kernel\Distribution.h" />
+    <ClInclude Include="..\Kernel\errorObject.h" />
+    <ClInclude Include="..\Kernel\fsm.h" />
+    <ClInclude Include="..\Kernel\fsmSystem.h" />
+    <ClInclude Include="..\Kernel\kernelAPI.h" />
+    <ClInclude Include="..\Kernel\kernelConsts.h" />
+    <ClInclude Include="..\Kernel\kernelTypes.h" />
+    <ClInclude Include="..\Kernel\linuxThread.h" />
+    <ClInclude Include="..\Kernel\logAutomate.h" />
+    <ClInclude Include="..\Kernel\LogFile.h" />
+    <ClInclude Include="..\Kernel\mailbox.h" />
+    <ClInclude Include="..\Kernel\messages.h" />
+    <ClInclude Include="..\Kernel\msgInterface.h" />
+    <ClInclude Include="..\Kernel\NetException.h" />
+    <ClInclude Include="..\Kernel\NetFSM.h" />
+    <ClInclude Include="..\Kernel\postOffice.h" />
+    <ClInclude Include="..\Kernel\standardMsg.h" />
+    <ClInclude Include="..\Kernel\stdMsgpc16pl16.h" />
+    <ClInclude Include="..\Kernel\systemFunctions.h" />
+    <ClInclude Include="..\Kernel\systemTCP.h" />
+    <ClInclude Include="..\Kernel\thread.h" />
+    <ClInclude Include="..\Kernel\ThreadException.h" />
+    <ClInclude Include="..\Kernel\timer.h" />
+    <ClInclude Include="..\Kernel\TransportInterface.h" />
+    <ClInclude Include="..\Kernel\UdpFSM.h" />
+    <ClInclude Include="..\Kernel\UdpLogInterface.h" />
+    <ClInclude Include="..\Kernel\uniSock.h" />
+    <ClInclude Include="ChAuto.h" />
+    <ClInclude Include="ClAuto.h" />
+    <ClInclude Include="const.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="MainTest.h" />
+    <ClInclude Include="UserAuto.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Kernel\buffers.cpp" />
+    <ClCompile Include="..\Kernel\buffersQueue.cpp" />
+    <ClCompile Include="..\Kernel\Client.cpp" />
+    <ClCompile Include="..\Kernel\Client_DTP.cpp" />
+    <ClCompile Include="..\Kernel\Distribution.cpp" />
+    <ClCompile Include="..\Kernel\errorObject.cpp" />
+    <ClCompile Include="..\Kernel\fsm.cpp" />
+    <ClCompile Include="..\Kernel\fsmSystem.cpp" />
+    <ClCompile Include="..\Kernel\kernelAPI.cpp" />
+    <ClCompile Include="..\Kernel\KernelFunctions.cpp" />
+    <ClCompile Include="..\Kernel\linuxFunctions.cpp" />
+    <ClCompile Include="..\Kernel\logAutomate.cpp" />
+    <ClCompile Include="..\Kernel\LogFile.cpp" />
+    <ClCompile Include="..\Kernel\mailbox.cpp" />
+    <ClCompile Include="..\Kernel\messages.cpp" />
+    <ClCompile Include="..\Kernel\msgInterface.cpp" />
+    <ClCompile Include="..\Kernel\NetFSM.cpp" />
+    <ClCompile Include="..\Kernel\postOffice.cpp" />
+    <ClCompile Include="..\Kernel\standardMsg.cpp" />
+    <ClCompile Include="..\Kernel\stdMsgpc16pl16.cpp" />
+    <ClCompile Include="..\Kernel\systemFunctions.cpp" />
+    <ClCompile Include="..\Kernel\systemTCP.cpp" />
+    <ClCompile Include="..\Kernel\thread.cpp" />
+    <ClCompile Include="..\Kernel\timer.cpp" />
+    <ClCompile Include="..\Kernel\TransportInterface.cpp" />
+    <ClCompile Include="..\Kernel\UdpFSM.cpp" />
+    <ClCompile Include="..\Kernel\UdpLogInterface.cpp" />
+    <ClCompile Include="ChAuto.cpp" />
+    <ClCompile Include="ClAuto.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainTest.cpp" />
+    <ClCompile Include="RUN.cpp" />
+    <ClCompile Include="UserAuto.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
