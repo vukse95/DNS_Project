@@ -74,7 +74,7 @@ void ClAuto::FSM_Client_Idle_State(){
 void ClAuto::FSM_Client_Get_Data_From_User(){
 	// Get Data From Client
 	
-	uint8* buffer = GetParam(PARAM_DATA);
+	uint8* buffer = GetParam(PARAM_Name);
 	uint16 size = buffer[2];
 
 	memcpy(DNSRequestInput, buffer + 4,size);
@@ -169,15 +169,15 @@ void ClAuto::FSM_Client_Get_DNS_Request_From_Channel(){
 	memcpy(DNSRequestOutput, buffer + 4, size);
 	DNSRequestOutput[size] = 0;
 
-	/*
+	
 	PrepareNewMessage(0x00, MSG_Client_To_User_Return_Data_Recived);
 	SetMsgToAutomate(CL_AUTOMATE_TYPE_ID);
 	SetMsgObjectNumberTo(0);
 	SendMessage(CL_AUTOMATE_MBX_ID);
-	*/
+	
 }
 
-void ClAuto::FSM_Client_Pass_DNS_Request_To_Client(){
+void ClAuto::FSM_Client_Pass_DNS_Request_To_Client(){ //Treba to user, ovo je greska
 	// Pass Recived data from channel to User fsm
 	PrepareNewMessage(0x00, MSG_Client_To_User_Return_Data_Recived);
 	SetMsgToAutomate(USER_AUTOMATE_TYPE_ID);
@@ -191,6 +191,8 @@ void ClAuto::FSM_Client_Pass_DNS_Request_To_Client(){
 
 void ClAuto::FSM_Client_Timer_Expired(){
 	// If timer expires send request again
+
+	printf("\n\nDomain Name Server Timedout!!");
 
 	PrepareNewMessage(0x00, MSG_Client_To_Channel_DNS_Request_Sent);
 	SetMsgToAutomate(CL_AUTOMATE_TYPE_ID);

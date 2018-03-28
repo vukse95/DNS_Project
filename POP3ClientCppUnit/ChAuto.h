@@ -60,6 +60,8 @@ protected:
 	uint16 m_nMaxMsgSize;
 
 	char DNSRequestInput[256];
+
+	int FirstStartFlag;
 };
 
 #endif /* _CH_AUTO_H */

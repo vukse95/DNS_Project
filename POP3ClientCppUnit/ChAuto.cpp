@@ -5,7 +5,7 @@
 
 #define StandardMessageCoding 0x00
 
-ChAuto::ChAuto() : FiniteStateMachine(CH_AUTOMATE_TYPE_ID, CH_AUTOMATE_MBX_ID, 1, 3, 3) {
+ChAuto::ChAuto() : FiniteStateMachine(CH_AUTOMATE_TYPE_ID, CH_AUTOMATE_MBX_ID, 1, 6, 3) {
 }
 
 ChAuto::~ChAuto() {
@@ -47,6 +47,9 @@ void ChAuto::Reset() {
 
 
 void ChAuto::Initialize() {
+
+	FirstStartFlag = 0;
+
 	SetState(FSM_Channel_Idle);
 	
 	//intitialization message handlers
@@ -63,6 +66,7 @@ void ChAuto::Initialize() {
 void ChAuto::FSM_Channel_Idle_State() {
 
 	SetState(FSM_Channel_DNS_Request);
+	FirstStartFlag++;
 }
 
 void ChAuto::FSM_Channel_Get_DNS_Request() {
@@ -74,17 +78,25 @@ void ChAuto::FSM_Channel_Get_DNS_Request() {
 	memcpy(DNSRequestInput, buffer + 4, size);
 	DNSRequestInput[size] = 0;
 
-	PrepareNewMessage(0x00, MSG_Channel_Create_Socket);
-	SetMsgToAutomate(CH_AUTOMATE_TYPE_ID);
-	SetMsgObjectNumberTo(0);
-	SendMessage(CH_AUTOMATE_MBX_ID);
+	// Create socket only on first start... :D
+	if (FirstStartFlag == 1)
+	{
+		PrepareNewMessage(0x00, MSG_Channel_Create_Socket);
+		SetMsgToAutomate(CH_AUTOMATE_TYPE_ID);
+		SetMsgObjectNumberTo(0);
+		SendMessage(CH_AUTOMATE_MBX_ID);
 
-	SetState(FSM_Channel_Connect);
+		SetState(FSM_Channel_Connect);
+	}
+	
 }
 
 void ChAuto::FSM_Channel_Connect_State(){
 	
 	WSAData wsaData;
+
+	printf("\nConnecting to Server!");
+
 	if (WSAStartup(MAKEWORD(2, 1), &wsaData) != 0) 
 	{
 		return;
@@ -128,7 +140,7 @@ void ChAuto::FSM_Channel_Connect_State(){
 		m_Socket = INVALID_SOCKET;
 		return ;
 	}
-
+	printf("\nConnected to Server!");
 
 
 	/* Then, start the thread that will listen on the the newly created socket. */
@@ -168,14 +180,23 @@ void ChAuto::FSM_Channel_To_Client_DNS_Request_Pass(const char* apBuffer, uint16
 	AddParam(PARAM_DATA, anBufferLength, (uint8 *)apBuffer);
 	SendMessage(CL_AUTOMATE_MBX_ID);
 
+	// Posle slanja disconnectuj se
+	PrepareNewMessage(0x00, MSG_Channel_Disconnect);
+	SetMsgToAutomate(CH_AUTOMATE_TYPE_ID);
+	SetMsgObjectNumberTo(0);
+	SendMessage(CH_AUTOMATE_MBX_ID);
+
+	SetState(FSM_Channel_Disconnect);
+
 }
 
 DWORD ChAuto::ClientListener(LPVOID param) {
 	ChAuto* pParent = (ChAuto*)param;
-	int nReceivedBytes;
+	int nReceivedBytes = 0;
 	char* buffer = new char[255];
 
-	nReceivedBytes = recv(pParent->m_Socket, buffer, 255, 0);
+	//Needs initialization
+	//nReceivedBytes = recv(pParent->m_Socket, buffer, 255, 0);
 	if (nReceivedBytes < 0) {
 		DWORD err = WSAGetLastError();
 	}
@@ -187,7 +208,7 @@ DWORD ChAuto::ClientListener(LPVOID param) {
 			nReceivedBytes = recv(pParent->m_Socket, buffer, 255, 0);
 			if (nReceivedBytes == 0)
 			{
-				printf("Disconnected from server!\n");
+				printf("\n\nDisconnected from server!\n");
 				pParent->FSM_Channel_Disconnect_State();
 				break;
 			}

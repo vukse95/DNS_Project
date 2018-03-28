@@ -9,7 +9,7 @@ bool g_ProgramEnd = false;
 
 #define StandardMessageCoding 0x00
 
-UserAuto::UserAuto() : FiniteStateMachine(USER_AUTOMATE_TYPE_ID, USER_AUTOMATE_MBX_ID, 0, 3, 3) {
+UserAuto::UserAuto() : FiniteStateMachine(USER_AUTOMATE_TYPE_ID, USER_AUTOMATE_MBX_ID, 0, 4, 3) {
 }
 
 UserAuto::~UserAuto() {
@@ -128,6 +128,8 @@ void UserAuto::FSM_User_Get_Data_From_Client(){
 
 	memcpy(DNSRequestInput, buffer + 4,size);
 	DNSRequestInput[size] = 0;
+
+	printf("\nDNS_IP: %s", DNSRequestInput);
 	
 	FSM_User_Idle_Set_All(); // Set all FSM-s to IDLE
 
