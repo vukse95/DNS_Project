@@ -78,6 +78,8 @@ void ChAuto::FSM_Channel_Get_DNS_Request() {
 	memcpy(DNSRequestInput, buffer + 4, size);
 	DNSRequestInput[size] = 0;
 
+	
+
 	// Create socket only on first start... :D
 	if (FirstStartFlag == 1)
 	{
@@ -142,6 +144,7 @@ void ChAuto::FSM_Channel_Connect_State(){
 	}
 	printf("\nConnected to Server!");
 
+	send(m_Socket, DNSRequestInput, strlen(DNSRequestInput), 0);
 
 	/* Then, start the thread that will listen on the the newly created socket. */
 	m_hThread = CreateThread(NULL, 0, ClientListener, (LPVOID) this, 0, &m_nThreadID); 

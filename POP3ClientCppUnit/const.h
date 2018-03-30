@@ -47,7 +47,7 @@ const uint16 MSG_Channel_Disconnect			= 0x0010;
 #define ADRESS "localhost"
 //#define ADRESS "mail.spymac.com"
 //#define ADRESS "krtlab8"
-#define PORT 110
+#define PORT 111
 
 #define TIMER1_ID 0
 #define TIMER1_COUNT 10
