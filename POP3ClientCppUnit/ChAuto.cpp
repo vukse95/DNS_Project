@@ -138,6 +138,7 @@ void ChAuto::FSM_Channel_Connect_State(){
 	/* Try to reach the server. */
 	if (connect(m_Socket, (struct sockaddr*) &server_addr, sizeof(server_addr)) < 0) {
 		/* Here some additional cleanup should be done. */
+		printf("\n\nError - Server Offline !!\n");
 		closesocket(m_Socket);
 		m_Socket = INVALID_SOCKET;
 		return ;
